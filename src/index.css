@@ -1,0 +1,81 @@
+@import "tailwindcss";
+
+@theme {
+  /* Warm Elegance Palette - Crema + Verde Botol */
+  --color-primary: #1B4D3E;
+  --color-primary-foreground: #ffffff;
+  --color-secondary: #F0EDE8;
+  --color-secondary-foreground: #2D2D2D;
+  --color-muted: #F5F2ED;
+  --color-muted-foreground: #6B6560;
+  --color-accent: #E8DFD0;
+  --color-accent-foreground: #2D2D2D;
+  --color-destructive: #C54B3C;
+  --color-destructive-foreground: #ffffff;
+  --color-border: #E5E0D8;
+  --color-input: #E5E0D8;
+  --color-ring: #1B4D3E;
+  --color-background: #FAF8F5;
+  --color-foreground: #1a1a1a;
+  --color-card: #FEFEFE;
+  --color-card-foreground: #1a1a1a;
+  --color-popover: #FEFEFE;
+  --color-popover-foreground: #1a1a1a;
+
+  /* Success state - verde suave */
+  --color-success: #2D7A5A;
+  --color-success-foreground: #ffffff;
+
+  --radius-lg: 0.75rem;
+  --radius-md: 0.5rem;
+  --radius-sm: 0.25rem;
+
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+}
+
+/* Dark mode palette */
+.dark {
+  --color-primary: #4ADE80;
+  --color-primary-foreground: #0f172a;
+  --color-secondary: #1e293b;
+  --color-secondary-foreground: #e2e8f0;
+  --color-muted: #1e293b;
+  --color-muted-foreground: #94a3b8;
+  --color-accent: #334155;
+  --color-accent-foreground: #e2e8f0;
+  --color-destructive: #f87171;
+  --color-destructive-foreground: #0f172a;
+  --color-border: #334155;
+  --color-input: #334155;
+  --color-ring: #4ADE80;
+  --color-background: #0f172a;
+  --color-foreground: #f1f5f9;
+  --color-card: #1e293b;
+  --color-card-foreground: #f1f5f9;
+  --color-popover: #1e293b;
+  --color-popover-foreground: #f1f5f9;
+  --color-success: #4ADE80;
+  --color-success-foreground: #0f172a;
+}
+
+@keyframes accordion-down {
+  from { height: 0; }
+  to { height: var(--radix-accordion-content-height); }
+}
+
+@keyframes accordion-up {
+  from { height: var(--radix-accordion-content-height); }
+  to { height: 0; }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: system-ui, -apple-system, sans-serif;
+  }
+}
