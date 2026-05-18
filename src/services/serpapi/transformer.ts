@@ -33,7 +33,7 @@ function mapResult(result: SerpApiShoppingResult, index: number): PriceResult {
     productImage: result.thumbnail,
     price: result.extracted_price,
     originalPrice: result.extracted_old_price || undefined,
-    url: result.product_link,
+    url: result.product_link || result.link,
     freeShipping: false, // Not available in basic SerpApi results
     interestFree: hasInstallments && installmentMonths !== undefined && installmentMonths > 1,
     installments: installmentMonths,

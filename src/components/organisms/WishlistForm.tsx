@@ -11,10 +11,15 @@ interface WishlistFormProps {
 }
 
 export function WishlistForm({ onSubmit, initialValue = '', isEditing = false, onCancel }: WishlistFormProps) {
-  // Only use internal state when not editing (controlled by parent)
+  // Use internal state only when not editing
   const [internalValue, setInternalValue] = useState('')
   const value = isEditing ? initialValue : internalValue
-  const setValue = isEditing ? () => {} : setInternalValue
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!isEditing) {
+      setInternalValue(e.target.value)
+    }
+  }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -28,8 +33,8 @@ export function WishlistForm({ onSubmit, initialValue = '', isEditing = false, o
     <form onSubmit={handleSubmit} className="flex gap-3">
       <Input
         type="text"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
+        value={value}
+        onChange={handleChange}
         placeholder="Ej: iPhone 15 Pro Max, Heladera Samsung..."
         className="flex-1"
       />

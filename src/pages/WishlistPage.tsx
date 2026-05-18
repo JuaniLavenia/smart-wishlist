@@ -1,6 +1,6 @@
-import { useState, useMemo } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Search, ExternalLink, Trash2, X, Star } from 'lucide-react'
+import { Search, ExternalLink, Trash2, Star } from 'lucide-react'
 import { WishlistForm } from '@/components/organisms/WishlistForm'
 import { useWishlistStore } from '@/stores/wishlistStore'
 import { useFavoritesStore } from '@/stores/favoritesStore'
@@ -10,7 +10,6 @@ import type { Product } from '@/types'
 
 export function WishlistPage() {
   const { products, addProduct, updateProduct, deleteProduct } = useWishlistStore()
-  const favorites = useFavoritesStore((state) => state.items)
   const removeFavorite = useFavoritesStore((state) => state.removeFavorite)
   const getByProductName = useFavoritesStore((state) => state.getByProductName)
   const [editingProduct, setEditingProduct] = useState<Product | null>(null)

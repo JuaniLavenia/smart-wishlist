@@ -10,10 +10,17 @@ export interface SerpApiShoppingResult {
   price: string
   extracted_price: number
   source: string
+  source_icon?: string
   link: string
+  product_link?: string
   thumbnail?: string
   rating?: number
   reviews?: number
+  extracted_old_price?: number
+  installment?: {
+    period?: number
+    extracted_price?: number
+  }
 }
 
 export interface SerpApiResponse {

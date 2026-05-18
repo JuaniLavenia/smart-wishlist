@@ -1,73 +1,89 @@
-# React + TypeScript + Vite
+# Smart Wishlist
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<img src="https://img.shields.io/badge/React-19-blue?style=flat&logo=react" alt="React 19"> <img src="https://img.shields.io/badge/TypeScript-5-blue?style=flat&logo=typescript" alt="TypeScript 5"> <img src="https://img.shields.io/badge/Vite-8-purple?style=flat&logo=vite" alt="Vite 8"> <img src="https://img.shields.io/badge/Tailwind-4-38bdf8?style=flat&logo=tailwind-css" alt="Tailwind 4">
 
-Currently, two official plugins are available:
+## Descripción
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+**Smart Wishlist** es una aplicación web para comparar precios de productos en múltiples tiendas argentinas. Agregá productos a tu lista de deseados, buscá precios en MercadoLibre, Fravega, Cetrogar, On City, Megatone y Whirlpool, y guardá tus favoritos.
 
-## React Compiler
+### Características
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- ✅ Agregar productos a tu wishlist
+- 🔍 Buscar precios en múltiples tiendas
+- ❤️ Guardar favoritos con persistencia local
+- 🎨 Modo claro/oscuro
+- 📊 Control de uso de API (250 búsquedas/mes)
+- ⚙️ Configuración de tiendas habilitadas
+- 📱 Diseño responsive y elegante
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+| Tecnología | Propósito |
+|------------|-----------|
+| React 19 | UI Framework |
+| TypeScript 5 | Tipado estático |
+| Vite 8 | Build tool |
+| TailwindCSS 4 | Estilos |
+| Zustand | Estado global |
+| TanStack Query | Cache de datos |
+| React Router 7 | Navegación |
+| MSW | Mock de API |
+| SerpApi | Búsqueda de precios |
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Instalación
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+```bash
+# Instalar dependencias
+pnpm install
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# Iniciar servidor de desarrollo
+pnpm dev
+
+# Build para producción
+pnpm build
+
+# Previsualizar build
+pnpm preview
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Configuración
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### API de SerpApi
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+1. Obtené tu API key en [serpapi.com](https://serpapi.com)
+2. Creá un archivo `.env` en la raíz:
+```env
+VITE_SERPAPI_API_KEY=tu_api_key_aqui
 ```
+
+### Tiendas disponibles
+
+- MercadoLibre
+- Fravega
+- Cetrogar
+- On City
+- Megatone
+- Whirlpool
+
+Podés habilitar/deshabilitar tiendas desde la página de Configuración.
+
+## Estructura del proyecto
+
+```
+src/
+├── components/       # Componentes React
+│   ├── atoms/       # Bloques básicos (Button, Input, Badge)
+│   ├── molecules/   # Componentes compuestos
+│   └── organisms/   # Componentes complejos
+├── pages/           # Páginas de la app
+├── stores/          # Zustand stores
+├── hooks/           # Custom hooks
+├── services/        # Servicios API
+├── mocks/           # MSW mocks
+├── types/           # TypeScript types
+└── lib/             # Utilidades
+```
+
+## Licencia
+
+MIT

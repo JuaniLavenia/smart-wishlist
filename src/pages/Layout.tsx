@@ -1,5 +1,5 @@
 import { Outlet, Link, useLocation } from 'react-router-dom'
-import { Heart, Settings, List, Sun, Moon } from 'lucide-react'
+import { Settings, List, Sun, Moon } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { UsageBadge, UsageWarning } from '@/components/UsageWarning'
 import { FavoriteToast } from '@/components/FavoriteToast'

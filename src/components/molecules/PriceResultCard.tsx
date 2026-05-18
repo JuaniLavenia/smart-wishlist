@@ -26,22 +26,19 @@ export function PriceResultCard({ result, isBestPrice }: PriceResultCardProps) {
   }, [result.url, isFavorite])
 
   const handleToggleFavorite = () => {
-    const favoriteItem: FavoriteItem = {
+    const favoriteItem = {
       id: result.url,
-      productName: result.productName,
-      name: result.title,
+      name: result.productName,
       url: result.url,
-      image: result.image || '',
+      image: result.productImage || '',
       price: result.price,
-      storeName: result.store,
-      rating: result.rating,
-      installments: result.installments,
+      storeName: result.storeName,
     }
 
     if (isFav) {
       removeFavorite(result.url)
     } else {
-      addFavorite(favoriteItem)
+      addFavorite(favoriteItem as Omit<FavoriteItem, 'id' | 'createdAt'>)
     }
     setIsFav(!isFav)
   }
@@ -142,14 +139,14 @@ export function PriceResultCard({ result, isBestPrice }: PriceResultCardProps) {
           </div>
 
           {/* Installment Info */}
-          {hasInstallments && (
+          {hasInstallments && result.installments && (
             <p className="text-sm text-muted-foreground">
               {result.installments} cuotas de{' '}
               {new Intl.NumberFormat('es-AR', {
                 style: 'currency',
                 currency: 'ARS',
                 minimumFractionDigits: 0,
-              }).format(result.installmentPrice || result.price / result.installments)}
+              }).format(result.installmentPrice || (result.price / result.installments))}
             </p>
           )}
         </div>
