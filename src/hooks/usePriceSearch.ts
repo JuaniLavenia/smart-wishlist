@@ -20,11 +20,14 @@ async function searchPricesMock(query: string): Promise<SearchResponse> {
   const results = generateMockPrices(query)
 
   // Filter mock results by enabled stores
+  // If NO stores are enabled, show ALL results (user wants to see everything)
   const enabledStoreIds = useStoresStore.getState().stores
     .filter((s) => s.enabled)
     .map((s) => s.id)
 
-  const filteredResults = results.filter((r) => enabledStoreIds.includes(r.storeId))
+  const filteredResults = enabledStoreIds.length > 0
+    ? results.filter((r) => enabledStoreIds.includes(r.storeId))
+    : results
 
   return {
     query,
@@ -70,30 +73,36 @@ async function searchPricesWithLimitCheck(query: string): Promise<SearchResponse
         .replace(/[^a-z0-9]/g, '') // Remove special chars
     }
 
-    const filteredResults = results.filter((r) => {
-      const resultNormalized = normalizeString(r.storeName)
+    const filteredResults = enabledStores.length > 0
+      ? results.filter((r) => {
+          const resultNormalized = normalizeString(r.storeName)
 
-      return enabledStores.some((enabled) => {
-        const enabledNormalized = normalizeString(enabled.name)
+          return enabledStores.some((enabled) => {
+            const enabledNormalized = normalizeString(enabled.name)
 
-        // Direct match after normalization
-        if (resultNormalized === enabledNormalized) return true
+            // Direct match after normalization
+            if (resultNormalized === enabledNormalized) return true
 
-        // Contains match - check if one contains the other
-        if (resultNormalized.includes(enabledNormalized) || enabledNormalized.includes(resultNormalized)) return true
+            // Contains match - check if one contains the other
+            if (resultNormalized.includes(enabledNormalized) || enabledNormalized.includes(resultNormalized)) return true
 
-        // Partial match - first significant word
-        const enabledFirstWord = enabledNormalized.split(' ')[0]
-        if (enabledFirstWord && resultNormalized.includes(enabledFirstWord)) return true
+            // Partial match - first significant word
+            const enabledFirstWord = enabledNormalized.split(' ')[0]
+            if (enabledFirstWord && resultNormalized.includes(enabledFirstWord)) return true
 
-        return false
-      })
-    })
+            return false
+          })
+        })
+      : results
 
     // Only increment after successful API call
     increment()
 
-    console.info(`Using real SerpApi data! (${filteredResults.length}/${results.length} results after store filter)`)
+    const filterNote = enabledStores.length > 0
+      ? ` (${filteredResults.length}/${results.length} results after store filter)`
+      : ` (${filteredResults.length} results, no store filter)`
+
+    console.info(`Using real SerpApi data!${filterNote}`)
 
     return {
       query,
